@@ -1,0 +1,62 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<WebSiteBanSach.Models.NhaXuatBan>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+
+<p>
+    @Html.ActionLink("Thêm mới Nhà xuất bản", "ThemMoi")
+</p>
+<table class="table">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().MaNXB)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().TenNXB)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().DiaChi)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().DienThoai)
+        </th>
+        <th class="text-center">
+            Action
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.MaNXB)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.TenNXB)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td class="text-center">
+                <a class="btn btn-warning action-link" href="@Url.Action("Sua", "QuanLyNhaXuatBan", new { @MaNXB = item.MaNXB })">Sửa</a>
+                <a class="btn btn-danger action-link" href="@Url.Action("Xoa", "QuanLyNhaXuatBan", new { @MaNXB = item.MaNXB })">Xóa</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p class="text-center">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+</p>
+<div style="display:inline;" class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>

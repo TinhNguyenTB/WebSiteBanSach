@@ -1,0 +1,41 @@
+﻿.product {
+    position: relative;
+    display: grid;
+    grid-template-areas:
+        'img'
+        'name'
+        'name'
+        'price'
+        'btn';
+    grid-gap: 5px;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0);
+    transition: all 0.3s ease-in-out;
+}
+
+    .product:hover {
+        cursor: pointer;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    }
+
+.image{
+    grid-area:img;
+}
+
+.product-name {
+    grid-area: name;
+    display: flex;
+    flex-direction: column;
+    height: 60px; /* Đặt chiều cao cố định cho product-name */
+    justify-content: center; /* Căn nội dung giữa theo chiều dọc */
+    align-items: center; /* Căn nội dung giữa theo chiều ngang */
+}
+
+.product-price{
+    grid-area:price;
+}
+
+.buttonAdd {
+    grid-area: btn;
+    justify-self: center; /* Căn giữa theo chiều ngang */
+    margin-bottom:5px;
+}

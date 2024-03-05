@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bookshop online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap style -->
+    <link id="callCss" rel="stylesheet" href="~/Content/boostrap/bootstrap.min.css" media="screen">
+    <link href="~/Content/css/base.css" rel="stylesheet" media="screen">
+    <!-- Bootstrap style responsive -->
+    <link href="~/Content/boostrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <!-- Google-code-prettify -->
+    <link href="~/Content/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <!-- fav and touch icons -->
+    <link rel="shortcut icon" href="themes/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Content/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/Content/images/ico/apple-touch-icon-57-precomposed.png">
+    <style type="text/css" id="enject"></style>
+
+    @*Css*@
+    <link href="~/Content/css/UserCssLayout.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/boostrap/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+    <div class="header">
+      
+        <!-- Navbar ================================================== -->
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-black">
+            <a href="@Url.Action("Index", "Home")">
+                <img class="h-25 w-25" src="~/Content/images/iconMainCycle.png" />
+            </a>
+            <div class="container">
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    @*Box search*@
+                    @using (Html.BeginForm("KetQuaTimKiem", "TimKiem", FormMethod.Post, new { @class = "d-flex" }))
+                    {
+                        <input name="txtTimKiem" class="form-control me-2 textBoxTimKiem" type="search" placeholder="Tìm kiếm">
+                        <button class="btn btn-success me-3" type="submit">
+                            Search
+                        </button>
+                    }
+
+                    @*Menu right*@
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2 mx-2" id="DanhMuc">
+                    <li class="nav-item text-center">
+                        <a class="nav-link text-white fw-bold" href="@Url.Action("About", "Home")">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item text-center">
+                        <a class="nav-link text-white fw-bold" href="@Url.Action("Contact", "Home")">Liên hệ</a>
+                    </li>
+                    <li class="nav-item text-center">
+                        <a class="nav-link text-white fw-bold" href="@Url.Action("SanPham", "Home")">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item text-center">
+                        <a class="nav-link text-white fw-bold" href="@Url.Action("DangKy", "NguoiDung")">Đăng ký</a>
+                    </li>
+                    <li class="nav-item text-center">
+                        @if (Session["TaiKhoan"] != null)
+                        {
+                            <!-- Hiển thị đăng xuất nếu đã đăng nhập -->
+                            <a class="nav-link text-white fw-bold" href="@Url.Action("DangXuat", "NguoiDung")">Đăng xuất</a>
+                        }
+                        else
+                        {
+                            <!-- Hiển thị Đăng nhập nếu chưa đăng nhập -->
+                            <a class="nav-link text-white fw-bold" href="@Url.Action("DangNhap", "NguoiDung")">Đăng nhập</a>
+                        }
+                    </li>
+                    
+                </ul>
+                </div>
+                @Html.Action("GioHangPartial", "GioHang")
+            </div>
+        </nav>
+    </div>
+    <!-- Header End====================================================================== -->
+
+    @RenderBody()
+
+    <!-- Footer ================================================================== -->
+    <div id="footerSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <h5>ACCOUNT</h5>
+                    <a class="text-decoration-none" href="login.html">YOUR ACCOUNT</a>
+                    <a class="text-decoration-none" href="login.html">PERSONAL INFORMATION</a>
+                    <a class="text-decoration-none" href="login.html">ADDRESSES</a>
+                    <a class="text-decoration-none" href="login.html">DISCOUNT</a>
+                    <a class="text-decoration-none" href="login.html">ORDER HISTORY</a>
+                </div>
+                <div class="col-3">
+                    <h5>INFORMATION</h5>
+                    <a class="text-decoration-none" href="contact.html">CONTACT</a>
+                    <a class="text-decoration-none" href="register.html">REGISTRATION</a>
+                    <a class="text-decoration-none" href="legal_notice.html">LEGAL NOTICE</a>
+                    <a class="text-decoration-none" href="tac.html">TERMS AND CONDITIONS</a>
+                    <a class="text-decoration-none" href="faq.html">FAQ</a>
+                </div>
+                <div class="col-3">
+                    <h5>OUR OFFERS</h5>
+                    <a class="text-decoration-none" href="#">NEW PRODUCTS</a>
+                    <a class="text-decoration-none" href="#">TOP SELLERS</a>
+                    <a class="text-decoration-none" href="special_offer.html">SPECIAL OFFERS</a>
+                    <a class="text-decoration-none" href="#">MANUFACTURERS</a>
+                    <a class="text-decoration-none" href="#">SUPPLIERS</a>
+                </div>
+                <div id="socialMedia" class="col-3">
+                    <h5>SOCIAL MEDIA </h5>
+                    <a class="text-decoration-none" href="#"><img width="60" height="60" src="~/Content/images/facebook.png" title="facebook" alt="facebook"></a>
+                    <a class="text-decoration-none" href="#"><img width="60" height="60" src="~/Content/images/twitter.png" title="twitter" alt="twitter"></a>
+                    <a class="text-decoration-none" href="#"><img width="60" height="60" src="~/Content/images/youtube.png" title="youtube" alt="youtube"></a>
+                </div>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Footer end ================================================================== -->
+
+</body>
+</html>

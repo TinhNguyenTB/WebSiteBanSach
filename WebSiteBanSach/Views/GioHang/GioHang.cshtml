@@ -1,0 +1,81 @@
+﻿@using WebSiteBanSach.Models;
+@model List<GioHang>
+
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+<h2>Giỏ hàng</h2>
+
+<style>
+    .wrap{
+        min-height:916px
+    }
+</style>
+
+<div class="table-responsive container">
+    <div class="wrap">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th class="text-center">Mã sách</th>
+                    <th class="text-start">Tên sách</th>
+                    <th class="text-center">Ảnh bìa</th>
+                    <th class="text-center">Đơn giá</th>
+                    <th class="text-center">Số lượng</th>
+                    <th class="text-center">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td class="text-center">@item.MaSach</td>
+
+                    <td class="text-start">@item.TenSach</td>
+
+                    <td class="text-center">
+                        <a href="@Url.Action("XemChiTiet", "Sach", new {@MaSach = item.MaSach })">
+                            <img src="@Url.Content("~/Content/HinhAnhSP/"+item.HinhAnh)" width="100" height="100" />
+                        </a>
+                    </td>
+
+                    <td class="text-center">
+                        <b>@string.Format("{0:N0}đ", item.DonGia)</b>
+                    </td>
+
+                    @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @MaSach = item.MaSach }))
+                    {
+                        <td class="text-center">
+                            @Html.TextBox("txtSoLuong", item.SoLuong, new { @style = "width:50px" })
+                            <input type="submit" value="Lưu" class="btn btn-warning" />
+                            <a class="btn btn-danger" href="@Url.Action("XoaGioHang", new { @MaSach = item.MaSach })">
+                                Xóa
+                            </a>
+                        </td>
+
+                    }
+
+                    <td class="text-center">
+                        <b>@string.Format("{0:N0}đ", item.ThanhTien)</b>
+                    </td>
+
+                </tr>
+                }
+
+            </tbody>
+        </table>
+
+        <div class="justify-content-between d-flex">
+            <h3>Tổng tiền: @string.Format("{0:N0}đ", ViewBag.TongTien)</h3>
+            @using (Html.BeginForm("DatHang", "GioHang"))
+            {
+
+                <input class="btn btn-success" type="submit" value="Đặt hàng" />
+            }
+        </div>
+        
+    </div>
+</div>
+

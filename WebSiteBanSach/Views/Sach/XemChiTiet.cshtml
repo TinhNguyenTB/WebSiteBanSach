@@ -1,0 +1,37 @@
+﻿@using WebSiteBanSach.Models;
+@model Sach
+
+@{
+    ViewBag.Title = "XemChiTiet";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Url.Content("~/Content/HinhAnhSP/" + Model.AnhBia)" height="400" width="400" class="mb-2"/>
+            <div>
+                <b>Mô tả:</b>
+                <p>@Model.MoTa</p>
+            </div>
+            
+        </div>
+        <div class="col-md-6">
+            <h3>@Model.TenSach</h3>
+            <h4>Giá bán: @string.Format("{0:N0}đ", Model.GiaBan)</h4>
+            <h5>Nhà xuất bản: @ViewBag.NXB</h5>
+            @using (Html.BeginForm("ThemVaoGioHang", "GioHang", new { @MaSach = Model.MaSach, @url = Request.Url.ToString() }))
+            {
+                <input type="submit" class="btn btn-danger" value="Thêm vào giỏ hàng"/>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

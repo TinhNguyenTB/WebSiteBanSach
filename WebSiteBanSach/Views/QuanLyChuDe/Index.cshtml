@@ -1,0 +1,49 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<WebSiteBanSach.Models.ChuDe>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Thêm mới chủ đề", "ThemMoi")
+</p>
+<table class="table table-hover">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().MaChuDe)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().TenChuDe)
+        </th>
+        <th class="text-center">
+            Action
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.MaChuDe)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.TenChuDe)
+            </td>
+            <td class="text-center">
+                <a class="btn btn-warning action-link" href="@Url.Action("Sua", "QuanLyChuDe", new { @MaChuDe = item.MaChuDe })">Sửa</a>
+                <a class="btn btn-danger action-link" href="@Url.Action("Xoa", "QuanLyChuDe", new { @MaChuDe = item.MaChuDe })">Xóa</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p class="text-center">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+</p>
+<div style="display:inline;" class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>

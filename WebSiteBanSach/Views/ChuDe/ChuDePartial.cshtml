@@ -1,0 +1,13 @@
+﻿@using WebSiteBanSach.Models;
+@model List<ChuDe>
+
+ 
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">
+            <a href="@Url.Action("SachTheoChuDe", new {@MaChuDe = item.MaChuDe })" class="text-decoration-none text-black">@item.TenChuDe</a>
+        </li>
+    }
+</ul>
+

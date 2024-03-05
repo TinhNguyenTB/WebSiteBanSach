@@ -1,0 +1,55 @@
+﻿@model WebSiteBanSach.Models.DonHangViewModel
+
+@{
+    ViewBag.Title = "XemChiTiet";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+<h2>Chi tiết đơn hàng</h2>
+
+<table class="table">
+    <tr>
+        <th class="text-center">
+            Mã chi tiết đơn hàng
+        </th>
+        <th class="text-center">
+            Mã đơn hàng
+        </th>
+        <th class="text-center">
+            Tên sách
+        </th>
+        <th class="text-center">
+            Số lượng
+        </th>
+        <th class="text-center">
+            Đơn giá
+        </th>
+        <th class="text-center">
+            Thành tiền
+        </th>
+    </tr>
+
+    @foreach (var chiTiet in Model.ChiTietDonHangs)
+    {
+<tr>
+    <td class="text-center">
+        @chiTiet.MaChiTietDH
+    </td>
+    <td class="text-center">
+        @chiTiet.MaDonHang
+    </td>
+    <td class="text-center">
+        @chiTiet.Sach.TenSach
+    </td>
+    <td class="text-center">
+        @chiTiet.SoLuong
+    </td>
+    <td class="text-center">
+        @string.Format("{0:N0}đ", chiTiet.DonGia)
+    </td>
+    <td class="text-center">
+        @string.Format("{0:N0}đ", chiTiet.DonGia * chiTiet.SoLuong)
+    </td>
+</tr>
+    }
+</table>

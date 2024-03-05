@@ -1,0 +1,32 @@
+﻿@model List<WebSiteBanSach.Models.Sach>
+
+@{
+    ViewBag.Title = "KetQuaTimKiem";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+<style>
+    .wrap{
+        min-height:458px;
+    }
+</style>
+
+<h3>Kết quả tìm kiếm</h3>
+@ViewBag.Thongbao
+<div class="container">
+    <div class="wrap">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <a href="@Url.Action("XemChiTiet", "Sach", new { @MaSach = item.MaSach })" class="product col-4 text-center text-decoration-none mb-3">
+                    <img src="@Url.Content("~/Content/HinhAnhSP/" + item.AnhBia)" height="200" width="200" class="image" />
+                    <p class="text-black product-name">@item.TenSach</p>
+                    <b class="text-black product-price">Giá: @string.Format("{0:N0}đ", item.GiaBan)</b>
+                    @using (Html.BeginForm("ThemVaoGioHang", "GioHang", new { @MaSach = item.MaSach, @url = "Giohang/Giohang" }))
+                    {
+                        <input type="submit" class="btn btn-danger buttonAdd" value="Thêm vào giỏ hàng" />
+                    }
+                </a>
+            }
+        </div>
+    </div>
+</div>

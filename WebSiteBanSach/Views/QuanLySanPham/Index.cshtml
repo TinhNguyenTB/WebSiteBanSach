@@ -1,0 +1,120 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<WebSiteBanSach.Models.Sach>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Thêm mới sách", "ThemMoi")
+</p>
+
+<style>
+    .narrow-description {
+        max-width: 200px; /* Điều chỉnh chiều rộng tối đa của cột "Mô tả" */
+        overflow: hidden; /*Nội dung vượt quá chiều rộng tối đa sẽ bị ẩn đi */
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .narrow-column {
+        max-width: 100px; /* Điều chỉnh chiều rộng tối đa của cột "Tên sách" */
+        white-space: normal; /* Cho phép xuống dòng tự động khi nội dung quá dài */
+    }
+    .action-link {
+        display: inline-block; 
+        width: 50px; 
+        margin-bottom: 8px; 
+    }
+    
+</style>
+
+<table class="table">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().MaSach)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TenSach)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().GiaBan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MoTa)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().AnhBia)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().NgayCapNhat)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().SoLuongTon)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().MaNXB)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.First().MaChuDe)
+        </th>
+
+        <th class="fw-bold">
+            Action
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.MaSach)
+            </td>
+            <td class="narrow-column">
+                @Html.DisplayFor(modelItem => item.TenSach)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.GiaBan)
+            </td>
+            <td class="narrow-description text-capitalize">
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td class="text-center">
+                <img src="@Url.Content("~/Content/HinhAnhSP/"+item.AnhBia)" height="100" width="100" class="image" />
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.NgayCapNhat)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.SoLuongTon)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.NhaXuatBan.TenNXB)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.ChuDe.TenChuDe)
+            </td>
+
+            <td>
+                <a class="btn btn-warning action-link" href="@Url.Action("Sua", "QuanLySanPham", new { @MaSach = item.MaSach })">Sửa</a> <br />
+                <a class="btn btn-primary action-link" href="@Url.Action("XemChiTiet", "QuanLySanPham", new { @MaSach = item.MaSach })">Xem</a> <br />
+               
+                <a class="btn btn-danger action-link" href="@Url.Action("Xoa", "QuanLySanPham", new { @MaSach = item.MaSach })">Xóa</a>
+                
+            </td>
+        </tr>
+    }
+    
+
+</table>
+
+<p class="text-center">
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+</p>
+<div style="display:inline;" class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+

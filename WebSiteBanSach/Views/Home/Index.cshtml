@@ -1,0 +1,46 @@
+﻿@using WebSiteBanSach.Models;
+@model List<Sach>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+
+@*body trang index*@
+<!-- Banner start-->
+<div class="container">
+    <div id="myCarousel" class="carousel slide my-5" data-bs-ride="carousel" data-bs-interval="3000">
+        <!-- Slides -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Content/images/banner1.jpg" style="width:100%" alt="Image 1">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/images/banner2.jpg" style="width:100%" alt="Image 2">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner end-->
+
+<div class="container">
+    <h2 class="text-center my-5">Sách đang giảm giá</h2>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("XemChiTiet", "Sach", new {@MaSach = item.MaSach})" class="product col-4 text-center text-decoration-none mb-3">
+                <img src="@Url.Content("~/Content/HinhAnhSP/"+item.AnhBia)" height="200" width="200" class="image" />
+                <p class="text-black product-name">@item.TenSach</p>
+                <b class="text-black product-price">Giá: @string.Format("{0:N0}đ", item.GiaBan)</b>
+                @using (Html.BeginForm("ThemVaoGioHang", "GioHang", new { @MaSach = item.MaSach, @url = Request.Url.ToString() }))
+                {
+                    <input type="submit" class="btn btn-danger buttonAdd" value="Thêm vào giỏ hàng" />
+                }
+            </a>
+        }
+    </div>
+    <hr />
+    <h2 class="text-center my-5">Sách mới</h2>
+    @Html.Action("SachMoiPartial", "Sach")
+</div>
